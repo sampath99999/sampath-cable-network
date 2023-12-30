@@ -44,10 +44,8 @@ class AuthController extends Controller
         $session->save();
 
         return $this->successResponse([
-            "data" => [
                 "token" => $token,
                 "user" => Auth::user()
-            ]
         ]);
     }
 
