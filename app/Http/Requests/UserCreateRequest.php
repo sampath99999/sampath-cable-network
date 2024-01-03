@@ -17,7 +17,7 @@ class UserCreateRequest extends FormRequest
     {
         $network_id = Auth::user()["network_id"];
         $network = Network::where("id", $network_id)->first();
-        if(!$network || !$network["status"]){
+        if (!$network || !$network["status"]) {
             return false;
         }
         return true;
@@ -32,9 +32,9 @@ class UserCreateRequest extends FormRequest
     {
         return [
             "name" => ["required", "min:3", "max:25"],
-            "username" => ["required", "min:3", "max:25", "exists:users"],
+            "username" => ["required", "min:3", "max:25", "unique:users"],
             "password" => ["required", "min:3", "max:25"],
-            "email" => ["optional", "email"],
+            "email" => ["email"],
             "phone" => ["required", "digits:10", "numeric"],
             "role_id" => ["required", "exists:user_roles,id"]
         ];
@@ -42,7 +42,7 @@ class UserCreateRequest extends FormRequest
 
     protected function failedValidation(Validator $validator): HttpResponseException
     {
-        throw new HttpResponseException(response()->json(["errors" => $validator->errors()], 422));
+        throw new HttpResponseException(response()->json(["message" => $validator->errors()->first()], 422));
     }
 
     protected function failedAuthorization()

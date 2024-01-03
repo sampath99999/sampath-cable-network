@@ -29,5 +29,7 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::group(["prefix" => "user"], function () {
         Route::post('/create', [UsersController::class, 'createUser']);
         Route::get("/roles", [UsersController::class, 'getRoles']);
+        Route::get("/getAll", [UsersController::class, 'getUserList']);
+        Route::put("/changeStatus", [UsersController::class, 'changeStatus']);
     });
 });

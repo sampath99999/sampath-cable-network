@@ -42,6 +42,7 @@ class User extends Authenticatable implements JWTSubject
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        "status" => 'boolean',
     ];
 
     protected $fillable = [
@@ -63,5 +64,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'role_id', 'id');
     }
 }
