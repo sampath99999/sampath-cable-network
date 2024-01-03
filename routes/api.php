@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AgencyController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\WpsController;
 use Illuminate\Http\Request;
@@ -18,12 +19,12 @@ use App\Http\Controllers\UsersController;
 |
 */
 
-Route::post("/login", [\App\Http\Controllers\AuthController::class, "login"]);
+Route::post("/login", [AuthController::class, "login"]);
 
 Route::group(["middleware" => ["auth"]], function () {
-    Route::get("/logout", [\App\Http\Controllers\AuthController::class, "logout"]);
-    Route::get("/getMenus", [\App\Http\Controllers\UsersController::class, "getMenus"]);
-    Route::get("/getUserDetails", [\App\Http\Controllers\AuthController::class, "getUserDetails"]);
+    Route::get("/logout", [AuthController::class, "logout"]);
+    Route::get("/getMenus", [UsersController::class, "getMenus"]);
+    Route::get("/getUserDetails", [AuthController::class, "getUserDetails"]);
 
     Route::group(["prefix" => "user"], function () {
         Route::post('/create', [UsersController::class, 'createUser']);
