@@ -34,7 +34,7 @@ class UserCreateRequest extends FormRequest
             "name" => ["required", "min:3", "max:25"],
             "username" => ["required", "min:3", "max:25", "unique:users"],
             "password" => ["required", "min:3", "max:25"],
-            "email" => ["email"],
+            "email" => ["nullable", "email"],
             "phone" => ["required", "digits:10", "numeric"],
             "role_id" => ["required", "exists:user_roles,id"]
         ];

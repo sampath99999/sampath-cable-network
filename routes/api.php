@@ -31,5 +31,6 @@ Route::group(["middleware" => ["auth"]], function () {
         Route::get("/roles", [UsersController::class, 'getRoles']);
         Route::get("/getAll", [UsersController::class, 'getUserList']);
         Route::put("/changeStatus", [UsersController::class, 'changeStatus']);
+        Route::delete("/{user}", [UsersController::class, 'deleteUser']);
     });
 });

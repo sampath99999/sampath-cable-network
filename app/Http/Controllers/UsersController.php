@@ -36,6 +36,8 @@ class UsersController extends Controller
             $userDetails = $request->validated();
             $userDetails["network_id"] = Auth::user()["network_id"];
             $user = User::create($userDetails);
+            $role = UserRole::where("id", $userDetails["role_id"])->first();
+            $user["role"] = $role;
             return $this->successResponse(["user" => $user]);
         } catch (\Exception $e) {
             report($e);
@@ -66,5 +68,11 @@ class UsersController extends Controller
 
         User::where("id", $user_id)->update(["status" => $status]);
         return $this->successResponse();
+    }
+
+    public function deleteUser(User $user)
+    {
+        $user->delete();
+        return $this->successResponse(null, "User deleted successfully");
     }
 }
